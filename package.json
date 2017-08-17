@@ -1,0 +1,23 @@
+{
+  "name": "liri",
+  "version": "1.0.0",
+  "description": "Coding Boot Camp homework assignment",
+  "main": "liri.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DanDay1/liri-node-app.git"
+  },
+  "keywords": [
+    "boot",
+    "camp"
+  ],
+  "author": "Daniel Day",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DanDay1/liri-node-app/issues"
+  },
+  "homepage": "https://github.com/DanDay1/liri-node-app#readme"
+}
