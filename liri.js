@@ -152,9 +152,10 @@ function omdb(selection) {
 
         if (selection) {
           movie = selection;
-        } else {
+        } else if (!selection) {
           movie = "Mr. Nobody";
-        }
+        } else {console.log("Error");
+      }
 
         // Then run a request to the OMDB API with the movie speified
         var queryUrl = "http://www.omdbapi.com/?t=" + movie + "&y=&plot=short&apikey=40e9cece";
@@ -187,10 +188,7 @@ function omdb(selection) {
 
                 }
             });
-         // }
-      //   else{
-      //     console.log('Error');
-      // }
+
 
     };
 
