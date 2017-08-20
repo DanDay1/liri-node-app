@@ -10,6 +10,18 @@ var keys = require('./keys.js');
 // var twitter = require("twitter");
 // var spotify = require("spotify");
 
+function liri(command, selection){
+  switch(command){
+    // case 'my-tweets': twitter(action); break;
+    // case 'spotify-this-song': spotify(action); break;
+    case 'find-movie': omdb(selection); break;
+    // case 'do-what-it-says': doWhatISay(); break;
+    default: log("\nINSTRUCTIONS:\n Enter one of the following commands: \n\n SHOW A USERS MOST RECENT TWEETS: node liri.js my-tweets 'twitter handle'\n SONG INFORMATION: node liri.js spotify-this-song 'song name'\n LEARN MORE ABOUT A MOVIE: node liri.js movie-this 'movie name'\n RUN A COMMAND FROM A TEXT FILE: node liri.js do-what-it-says\n");
+  }
+}
+
+
+
 // //my twitter;
 
 // var params = {screen_name: 'NH2FakeNews'};
@@ -129,12 +141,20 @@ var keys = require('./keys.js');
 
 var request = require("request");
 
-
-
+function omdb(selection) {
+     // if (!selection) {
         // Grab the movieName which will always be the third node argument.
         // var movieName = process.argv[2];
 
-        movie = "Mr. Nobody"
+        console.log(selection);
+
+        var movie;
+
+        if (selection) {
+          movie = selection;
+        } else {
+          movie = "Mr. Nobody";
+        }
 
         // Then run a request to the OMDB API with the movie speified
         var queryUrl = "http://www.omdbapi.com/?t=" + movie + "&y=&plot=short&apikey=40e9cece";
@@ -166,8 +186,13 @@ var request = require("request");
                     console.log(body);
 
                 }
-              
-        
-        });
+            });
+         // }
+      //   else{
+      //     console.log('Error');
+      // }
 
+    };
+
+    liri("find-movie", "frozen");
 
