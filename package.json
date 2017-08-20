@@ -19,5 +19,11 @@
   "bugs": {
     "url": "https://github.com/DanDay1/liri-node-app/issues"
   },
-  "homepage": "https://github.com/DanDay1/liri-node-app#readme"
+  "homepage": "https://github.com/DanDay1/liri-node-app#readme",
+  "dependencies": {
+    "geocode": "0.0.3",
+    "request": "^2.81.0",
+    "spotify": "^0.3.0",
+    "twitter": "^1.7.1"
+  }
 }
