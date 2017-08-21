@@ -12,19 +12,21 @@ var client = new twitter(keys.twitterKeys);
 // var spotify = require("spotify");
 
 function liri(command, selection) {
-  console.log("i guess");
-  console.log(command);
+    console.log("i guess");
+    console.log(command);
     switch (command) {
         case 'find-tweets':
             ftwitter(selection);
             break;
-            case 'spotify-this-song': spotify(action); break;
+        case 'find-song':
+            fspotify(selection);
+            break;
         case 'find-movie':
             omdb(selection);
             break;
             // case 'do-what-it-says': doWhatISay(); break;
         default:
-            console.log("\nINSTRUCTIONS:\n Enter one of the following commands: \n\n SHOW A USERS MOST RECENT TWEETS: node liri.js my-tweets 'twitter handle'\n SONG INFORMATION: node liri.js spotify-this-song 'song name'\n LEARN MORE ABOUT A MOVIE: node liri.js movie-this 'movie name'\n RUN A COMMAND FROM A TEXT FILE: node liri.js do-what-it-says\n");
+            console.log("\nINSTRUCTIONS:\n Enter one of the following commands: \n\n SHOW A USERS MOST RECENT TWEETS: node liri.js my-tweets 'twitter handle'\n SONG INFORMATION: node liri.js find-song 'song name'\n LEARN MORE ABOUT A MOVIE: node liri.js movie-this 'movie name'\n RUN A COMMAND FROM A TEXT FILE: node liri.js do-what-it-says\n");
     }
 }
 
@@ -32,11 +34,11 @@ function liri(command, selection) {
 
 //my twitter;
 function ftwitter(selection) {
-  console.log("find news");
+    console.log("find news");
     var params = { screen_name: 'NH2FakeNews' };
     console.log("something");
     client.get('statuses/user_timeline', params, function(error, tweets, response) {
-      console.log("something else");
+        console.log("something else");
         if (!error && response.statusCode == 200) {
             for (var i = 0; i < 4; i++) {
                 console.log("@NH2FakeNews: " + tweets[i].text);
@@ -49,22 +51,42 @@ function ftwitter(selection) {
 
 
 // spotify trial code from office hours:
+function fspotify(selection) {
+    console.log("find music");
+    var Spotify = require('node-spotify-api');
 
-var Spotify = require('node-spotify-api');
+    var spotify = new Spotify({
+        id: 'ca299c04c542498e831715e97c41e9b9',
+        secret: '19aac6a2f3024405b2d8c51f65afbaad'
+    });
 
-var spotify = new Spotify({
-  id: 'ca299c04c542498e831715e97c41e9b9',
-  secret: '19aac6a2f3024405b2d8c51f65afbaad'
-});
+    spotify.search({ type: 'track', query: selection }, function(err, data) {
+        // if (err) {
+        //   return console.log('Error occurred: ' + err);
+        // }
 
-spotify.search({ type: 'track', query: 'All the Small Things' }, function(err, data) {
-  if (err) {
-    return console.log('Error occurred: ' + err);
-  }
+        // console.log(data); 
+        // });
 
-console.log(data); 
-});
+        // spotify.search({type: 'track', query: song}, function(err, data) {
+        if (!err) {
+            for (var i = 0; i < 1; i++) {
+                if (data.tracks.items[i] != undefined) {
+                    console.log("\n---------------------\n");
+                    console.log('Artist: ' + data.tracks.items[i].artists[0].name) //Artist name
+                    console.log('Song: ' + data.tracks.items[i].name) //Song name
+                    console.log('Album: ' + data.tracks.items[i].album.name) //Album name
+                    console.log('Preview Url: ' + data.tracks.items[i].preview_url) //Preview URL
+                    console.log("\n---------------------\n");
+                };
+            };
 
+        } else {
+            log('Error occurred: ' + err);
+
+        };
+    });
+};
 
 
 //Origional Spotify code:
@@ -132,6 +154,4 @@ function omdb(selection) {
 };
 
 // liri("find-movie", "frozen");
-liri("find-tweets","dummy");
-
-
+liri("find-song", "Holiday");
