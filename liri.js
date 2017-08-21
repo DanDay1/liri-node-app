@@ -11,6 +11,8 @@ var twitter = require("twitter");
 var client = new twitter(keys.twitterKeys);
 // var spotify = require("spotify");
 
+
+
 function liri(command, selection) {
     console.log("i guess");
     console.log(command);
@@ -24,7 +26,7 @@ function liri(command, selection) {
         case 'movie-this':
             omdb(selection);
             break;
-            // case 'do-what-it-says': doWhatISay(); break;
+            case 'do-what-it-says': doWhatISay(); break;
         default:
             console.log("\nINSTRUCTIONS:\n Enter one of the following commands: \n\n SHOW A USERS MOST RECENT TWEETS: node liri.js my-tweets 'twitter handle'\n SONG INFORMATION: node liri.js find-song 'song name'\n LEARN MORE ABOUT A MOVIE: node liri.js movie-this 'movie name'\n RUN A COMMAND FROM A TEXT FILE: node liri.js do-what-it-says\n");
     }
@@ -160,9 +162,21 @@ function omdb(selection) {
 
         };
     });
-
-
 };
+
+function doWhatISay() {
+    fs.readFile('./random.txt', 'UTF-8', function(error, data) {
+        if (error) {
+            console.log('Error occurred: ' + err);
+        } else {
+            var splitData = data.split(",");
+            action = splitData[0];
+            argument = splitData[1];
+            liri(action, argument);
+        }
+    });
+};
+
 
 liri(process.argv[2], process.argv[3]);
 // liri("my-tweets", "");
