@@ -1,7 +1,3 @@
-// Take code from keys.js
-
-
-
 var fs = require('fs');
 var request = require('request');
 
@@ -71,10 +67,10 @@ function fspotify(selection) {
             for (var i = 0; i < 10; i++) {
                 if (data.tracks.items[i] != undefined) {
                     console.log("\n---------------------\n");
-                    console.log('Artist: ' + data.tracks.items[i].artists[0].name) //Artist name
-                    console.log('Song: ' + data.tracks.items[i].name) //Song name
-                    console.log('Album: ' + data.tracks.items[i].album.name) //Album name
-                    console.log('Preview Url: ' + data.tracks.items[i].preview_url) //Preview URL
+                    console.log('Artist: ' + data.tracks.items[i].artists[0].name) 
+                    console.log('Song: ' + data.tracks.items[i].name) 
+                    console.log('Album: ' + data.tracks.items[i].album.name) 
+                    console.log('Preview Url: ' + data.tracks.items[i].preview_url) 
                     console.log("\n---------------------\n");
                 };
             };
