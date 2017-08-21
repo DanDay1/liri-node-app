@@ -15,13 +15,13 @@ function liri(command, selection) {
     console.log("i guess");
     console.log(command);
     switch (command) {
-        case 'find-tweets':
+        case 'my-tweets':
             ftwitter(selection);
             break;
-        case 'find-song':
+        case 'spotify-this-song':
             fspotify(selection);
             break;
-        case 'find-movie':
+        case 'movie-this':
             omdb(selection);
             break;
             // case 'do-what-it-says': doWhatISay(); break;
@@ -60,17 +60,27 @@ function fspotify(selection) {
         secret: '19aac6a2f3024405b2d8c51f65afbaad'
     });
 
-    spotify.search({ type: 'track', query: selection }, function(err, data) {
-        // if (err) {
-        //   return console.log('Error occurred: ' + err);
-        // }
+    // spotify.search({ type: 'track', query: selection }, function(err, data) {
+    // if (err) {
+    //   return console.log('Error occurred: ' + err);
+    // }
 
-        // console.log(data); 
-        // });
+    // console.log(data); 
+    // });
 
-        // spotify.search({type: 'track', query: song}, function(err, data) {
+    // spotify.search({type: 'track', query: song}, function(err, data) {
+    var song;
+
+    if (selection) {
+        song = selection;
+    } else {
+        song = "the sign";
+    };
+
+    spotify.search({ type: 'track', query: song }, function(err, data) {
+
         if (!err) {
-            for (var i = 0; i < 1; i++) {
+            for (var i = 0; i < 10; i++) {
                 if (data.tracks.items[i] != undefined) {
                     console.log("\n---------------------\n");
                     console.log('Artist: ' + data.tracks.items[i].artists[0].name) //Artist name
@@ -112,11 +122,9 @@ function omdb(selection) {
 
     if (selection) {
         movie = selection;
-    } else if (!selection) {
-        movie = "Mr. Nobody";
     } else {
-        console.log("Error");
-    }
+        movie = "Mr. Nobody";
+    };
 
     // Then run a request to the OMDB API with the movie speified
     var queryUrl = "http://www.omdbapi.com/?t=" + movie + "&y=&plot=short&apikey=40e9cece";
@@ -147,11 +155,16 @@ function omdb(selection) {
 
             console.log(body);
 
-        }
+        } else {
+            log('Error occurred: ' + err);
+
+        };
     });
 
 
 };
 
-// liri("find-movie", "frozen");
-liri("find-song", "Holiday");
+liri(process.argv[2], process.argv[3]);
+// liri("my-tweets", "");
+// liri("find-movie", "");
+// liri("find-song", "");
